@@ -30,7 +30,7 @@ struct node {
     } data;
     struct node* next;
 };
-void display_generic_list(ptr_node list);
+
 void  displaylist (ptr_node list) {
 
     printf("(");
