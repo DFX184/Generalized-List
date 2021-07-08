@@ -21,6 +21,16 @@ typedef struct node* ptr_node;
 
 typedef enum {PTR_TYPE,DATA_TYPE} TYPESELECT;
 typedef enum {DATA,LIST} data_type;
+void free_cons(ptr_node* phead);
+
+/****************************************************************
+ *  construct function
+ * **************************************************************/
+
+#define CONSTRUCT(obj_type,obj,n)\
+    obj_type obj __attribute__((__cleanup__(free_cons))) = CONS(n,NULL);
+
+
 
 struct node {
     data_type type;
@@ -87,8 +97,9 @@ ptr_node LIST_(int count,...) {
     return res;
 }
 
-void free_cons(ptr_node* phead)
-{   while(*phead) {
+void free_cons(ptr_node* phead) {
+    printf("In free function \n");
+    while(*phead) {
         if((*phead)->type==LIST)
             free_cons(&((*phead)->data.d_node));
         ptr_node ptr = (*phead)->next;
